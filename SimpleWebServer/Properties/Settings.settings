@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimpleWebServer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DATA_SOURCE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">220.76.123.23,41433</Value>
+    </Setting>
+    <Setting Name="CATALOG" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DORI</Value>
+    </Setting>
+    <Setting Name="ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PASSWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BASE_ADDRESS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="PORT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
