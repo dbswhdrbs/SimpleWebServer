@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contents\Account.cs" />
+    <Compile Include="Controller\AccountController.cs" />
     <Compile Include="DBSQL\SqlEx.cs" />
     <Compile Include="DBSQL\SqlReaderExtensions.cs" />
     <Compile Include="Program.cs" />
@@ -94,8 +96,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controller\" />
+    <Content Include="StoredProcedure\GetAccount.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

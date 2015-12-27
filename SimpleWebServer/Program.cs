@@ -1,4 +1,6 @@
 ﻿using Microsoft.Owin.Hosting;
+using SimpleWebServer.Contents;
+using SimpleWebServer.DBSQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,26 @@ namespace SimpleWebServer
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
+
+            }
+        }
+
+        private void OnTestLogin()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseAddress);
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                Account testLoginAccount = new Account()
+                {
+                    Uid = 1,
+                    name = "Dori",
+                    lastLoginData = System.DateTime.UtcNow,
+                };
+
+                //var task = client.PostAsJsonAsync<Account>("AAAA", testLoginAccount).ContinueWith(x => x.Result.Content.ReadAsAsync<bool>().Result);
+                var task = client.PostAsJsonAsync<Account>("AAAA", testLoginAccount).Result;
             }
         }
     }

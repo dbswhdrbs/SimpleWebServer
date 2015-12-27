@@ -34,7 +34,7 @@ namespace SimpleWebServer.DBSQL
             }
         }
 
-        public void ExecuteQuery(QueryExecCallback queryExecCallback, string queryText, CommandType type = CommandType.Text)
+        public static void ExecuteQuery(QueryExecCallback queryExecCallback, string queryText, CommandType type = CommandType.Text)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
