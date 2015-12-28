@@ -26,12 +26,13 @@ namespace SimpleWebServer
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
-
+                Console.ReadLine();
             }
         }
 
         private void OnTestLogin()
         {
+            ///http://localhost:9010/컨트롤이름/컨트롤함수?id=1&password=asdf
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseAddress);

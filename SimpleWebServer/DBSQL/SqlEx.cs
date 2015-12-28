@@ -10,8 +10,6 @@ namespace SimpleWebServer.DBSQL
 {
     public class SqlEx
     {
-        public delegate void QueryExecCallback(SqlDataReader dataReader);
-
         /// <summary>
         /// DB 접속을 위한 접속 정보
         /// </summary>
@@ -34,24 +32,26 @@ namespace SimpleWebServer.DBSQL
             }
         }
 
-        public static void ExecuteQuery(QueryExecCallback queryExecCallback, string queryText, CommandType type = CommandType.Text)
+        public static int ExecuteQuery(string procedureName, List<SqlParameter> parameters)
         {
+            int resultCode = -1;
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
 
-                    using (SqlCommand command = connection.CreateCommand())
+                    using (SqlCommand cmd = new SqlCommand(procedureName, connection))
                     {
-                        command.CommandType = type;
-                        command.CommandText = queryText;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddRange(parameters.ToArray());
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (queryExecCallback != null)
+                            while (reader.Read())
                             {
-                                queryExecCallback(reader);
+                                resultCode = reader.GetInt32(0);
                             }
                         }
                     }
@@ -61,6 +61,8 @@ namespace SimpleWebServer.DBSQL
                     Console.WriteLine(ex.Message);
                 }
             }
+
+            return resultCode;
         }
     }
 }
