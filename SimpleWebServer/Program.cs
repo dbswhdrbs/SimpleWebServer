@@ -1,12 +1,7 @@
 ﻿using Microsoft.Owin.Hosting;
-using SimpleWebServer.Contents;
-using SimpleWebServer.DBSQL;
+using SimpleContents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleWebServer
 {
@@ -16,7 +11,7 @@ namespace SimpleWebServer
         {
             get
             {
-                return string.Format("{0}:{1}",
+                return string.Format("http://{0}:{1}/",
                     Properties.Settings.Default.BASE_ADDRESS,
                     Properties.Settings.Default.PORT);
             }
@@ -26,27 +21,32 @@ namespace SimpleWebServer
         {
             using (WebApp.Start<Startup>(url: baseAddress))
             {
+                OnTestLogin();
+
                 Console.ReadLine();
             }
         }
 
-        private void OnTestLogin()
+        /// <summary>
+        /// 테스트 로그인 함수
+        /// HttpClient 로 커스텀한 함수를 호출하여, 응답받는 코드
+        /// </summary>
+        public static void OnTestLogin()
         {
-            ///http://localhost:9010/컨트롤이름/컨트롤함수?id=1&password=asdf
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseAddress);
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                Account testLoginAccount = new Account()
+                AccountData testLoginAccount = new AccountData()
                 {
                     Uid = 1,
                     name = "Dori",
                     lastLoginData = System.DateTime.UtcNow,
                 };
 
-                //var task = client.PostAsJsonAsync<Account>("AAAA", testLoginAccount).ContinueWith(x => x.Result.Content.ReadAsAsync<bool>().Result);
-                var task = client.PostAsJsonAsync<Account>("AAAA", testLoginAccount).Result;
+                var response = client.PostAsJsonAsync("Account/OnRequestLogin", testLoginAccount).Result;
+
+                Console.WriteLine(response);
             }
         }
     }

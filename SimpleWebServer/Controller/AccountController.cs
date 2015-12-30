@@ -1,24 +1,27 @@
-﻿using SimpleWebServer.DBSQL;
+﻿using SimpleContents;
+using SimpleWebServer.DBSQL;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SimpleWebServer.Controller
 {
     public class AccountController : ApiController
     {
-        [System.Web.Http.HttpGet]
-        public void OnRequestLogin(UInt64 uid, string name)
+        /// <summary>
+        /// 클라이언트가 호출하는 로그인 함수
+        /// HttpPost 설정을 해줘야 호출된다.
+        /// </summary>
+        /// <param name="model"></param>
+        [System.Web.Http.HttpPost]
+        public void OnRequestLogin(AccountData model)
         {
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@UID", uid));
-                parameters.Add(new SqlParameter("@Name", name));
+                parameters.Add(new SqlParameter("@UID", model.Uid));
+                parameters.Add(new SqlParameter("@Name", model.name));
 
                 int result = SqlEx.ExecuteQuery("LOGIN_PROCEDURE", parameters);
 

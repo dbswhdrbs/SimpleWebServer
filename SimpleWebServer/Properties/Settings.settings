@@ -18,7 +18,7 @@
       <Value Profile="(Default)">localhost</Value>
     </Setting>
     <Setting Name="PORT" Type="System.String" Scope="User">
-      <Value Profile="(Default)">9000</Value>
+      <Value Profile="(Default)">9010</Value>
     </Setting>
   </Settings>
 </SettingsFile>
