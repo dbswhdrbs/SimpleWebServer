@@ -1,5 +1,4 @@
-﻿using SimpleContents;
-using SimpleWebServer.DBSQL;
+﻿using SimpleWebServer.DBSQL;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,21 +8,17 @@ namespace SimpleWebServer.Controller
 {
     public class AccountController : ApiController
     {
-        /// <summary>
-        /// 클라이언트가 호출하는 로그인 함수
-        /// HttpPost 설정을 해줘야 호출된다.
-        /// </summary>
-        /// <param name="model"></param>
         [System.Web.Http.HttpPost]
-        public void OnRequestLogin(AccountData model)
+        public void OnRequestExistUser([FromBody]Int64 uid)
         {
+            /// HttpPost 를 붙여줘야, 커스텀한 Url 이 호출 가능하다.
+            /// 클래스를 데이터로 보내면, 그냥 받을 수 있으나, int 등을 보내고 싶다면 [FromBody]를 붙이자!
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>();
-                parameters.Add(new SqlParameter("@UID", model.Uid));
-                parameters.Add(new SqlParameter("@Name", model.name));
+                parameters.Add(new SqlParameter("@uid", uid));
 
-                int result = SqlEx.ExecuteQuery("LOGIN_PROCEDURE", parameters);
+                int result = SqlEx.ExecuteQuery("EXIST_USER", parameters);
 
                 switch (result)
                 {

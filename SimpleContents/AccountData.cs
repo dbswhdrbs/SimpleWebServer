@@ -4,8 +4,7 @@ namespace SimpleContents
 {
     public class AccountData
     {
-        public Int64 Uid;
+        public Int64 uid;
         public string name;
-        public DateTime lastLoginData;
     }
 }
